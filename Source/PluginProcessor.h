@@ -52,6 +52,11 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    static juce::AudioProcessorValueTreeState::ParameterLayout
+        createParameterLayout();
+    
+    juce::AudioProcessorValueTreeState apvts {*this, nullptr, "Parameters", createParameterLayout()}; //This object is used to sync the values of the parameter that manipulate the DSP with the GUI and varibles of the DSP
 
 private:
     //==============================================================================

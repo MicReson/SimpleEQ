@@ -183,6 +183,26 @@ void SimpleEQAudioProcessor::setStateInformation (const void* data, int sizeInBy
     // whose contents will have been created by the getStateInformation() call.
 }
 
+juce::AudioProcessorValueTreeState::ParameterLayout
+    SimpleEQAudioProcessor::createParameterLayout()
+{
+        juce::AudioProcessorValueTreeState::ParameterLayout layout;
+        
+        layout.add(std::make_unique<juce::AudioParameterFloat>("Low Cut", "Low Cut", juce::NormalisableRange<float>(20.f, 20000.f, 1.f, 1.f), 20.f)); //this is for the highpass slider
+        
+        layout.add(std::make_unique<juce::AudioParameterFloat>("High Cut", "High Cut", juce::NormalisableRange<float>(20.f, 20000.f, 1.f, 1.f), 20000.f)); //this is for the lowpass slider
+        
+        layout.add(std::make_unique<juce::AudioParameterFloat>("Peak Freq", "Peak Freq", juce::NormalisableRange<float>(20.f, 20000.f, 1.f, 1.f), 740.f)); //this is for the peak slider in the frequency domain
+        
+        layout.add(std::make_unique<juce::AudioParameterFloat>("Peak Gain", "Peak Gain", juce::NormalisableRange<float>(-24.f, 24.f, 0.5f, 1.f), 0.0f)); //this is for the gain of the peak frequency
+        
+        layout.add(std::make_unique<juce::AudioParameterFloat>("Peak Q", "Peak Q", juce::NormalisableRange<float>(0.1f, 10.f, 0.05f, 1.f), 1.f)); //this is for the Q slider
+        
+        
+        
+        return layout;
+}
+
 //==============================================================================
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
